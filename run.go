@@ -17,21 +17,21 @@ var RunCmd = &cobra.Command{
 	Short: "Run some code",
 	Long:  `Run the specified code`,
 	Run: func(cmd *cobra.Command, args []string) {
-		valid_err := validate_run_args(args)
-		if valid_err != nil {
-			log.Fatal(valid_err)
+		err := validateRunArgs(args)
+		if err != nil {
+			log.Fatal(err)
 		} else {
 
 		}
 	},
 }
 
-var invalid_filetype_err = errors.New("run: invalid file types")
+var ErrInvalidFiletype = errors.New("run: invalid file types")
 
-func validate_run_args(args []string) error {
+func validateRunArgs(args []string) error {
 	for _, s := range args {
 		if !strings.HasSuffix(s, ".turtl") {
-			return invalid_filetype_err
+			return ErrInvalidFiletype
 		}
 	}
 	return nil
