@@ -1,0 +1,6 @@
+*.DS_Store
+turtl
+.vscode
+*.turtlc
+*.turtls
+debug
