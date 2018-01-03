@@ -1,4 +1,4 @@
-package main
+package turtl
 
 import (
 	"bytes"
@@ -7,15 +7,19 @@ import (
 	"os"
 )
 
-type shellCommand func([]string, *ShellContext) error
+/*
+ShellCommand is a type of function which executes a shell
+command
+*/
+type ShellCommand func([]string, *ShellContext) error
 
-func cmdQuit(args []string, ctx *ShellContext) error {
+func CmdQuit(args []string, ctx *ShellContext) error {
 	fmt.Printf("\nbye bye :)\n\n")
 	os.Exit(0)
 	return nil
 }
 
-func cmdHelp(args []string, ctx *ShellContext) error {
+func CmdHelp(args []string, ctx *ShellContext) error {
 	_, err := fmt.Println(shellHelpStr)
 	if err != nil {
 		return err
@@ -23,26 +27,30 @@ func cmdHelp(args []string, ctx *ShellContext) error {
 	return nil
 }
 
-func cmdLoad(args []string, ctx *ShellContext) error {
+func CmdLoad(args []string, ctx *ShellContext) error {
 	fmt.Println("hello from load")
 	return nil
 }
 
-func cmdRun(args []string, ctx *ShellContext) error {
+func CmdRun(args []string, ctx *ShellContext) error {
 	fmt.Println("hello from run")
 	return nil
 }
 
-func cmdSave(args []string, ctx *ShellContext) error {
+func CmdSave(args []string, ctx *ShellContext) error {
 	buff := bytes.Buffer{}
 	enc := gob.NewEncoder(&buff)
 	err := enc.Encode(ctx)
 
 	var name string
-	if ctx.name == "" {
-		name = string(ctx.id)
+	if len(args) > 0 {
+
 	} else {
-		name = ctx.name
+		if ctx.Name == "" {
+			name = string(ctx.ID)
+		} else {
+			name = ctx.Name
+		}
 	}
 
 	fpath := fmt.Sprintf("%s.%s", name, sessionSuffix)
@@ -60,20 +68,22 @@ func cmdSave(args []string, ctx *ShellContext) error {
 	return nil
 }
 
-func cmdReset(args []string, ctx *ShellContext) error {
-	ctx.history = make([]string, 0, 0)
-	ctx.line = ""
-	ctx.count = 0
-	ctx.currentPos = 0
-	ctx.index = 0
+func CmdReset(args []string, ctx *ShellContext) error {
+	ctx.History = make([]string, 0, 0)
+	ctx.Line = ""
+	ctx.Count = 0
+	ctx.CurrentPos = 0
+	ctx.Index = 0
 	return nil
 }
 
-func cmdName(args []string, ctx *ShellContext) error {
+func CmdName(args []string, ctx *ShellContext) error {
 	if len(args) > 0 {
-		ctx.name = args[0]
+		ctx.Name = args[0]
+		fmt.Printf("session name set to: %s\n", ctx.Name)
+		return nil
 	}
-	fmt.Printf("session name set to: %s\n", ctx.name)
+	fmt.Printf("session name: %s\n", ctx.Name)
 	return nil
 }
 
@@ -89,7 +99,7 @@ reset             reset the shell to the initial state
 name [name]       set the session name
 
 
-Interpreter commands should be prefixed with 
+Shell commands should be prefixed with 
 an @, for example: @help
 
 `

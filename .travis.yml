@@ -1,0 +1,9 @@
+language: go
+
+sudo: required
+dist: trusty
+
+git:
+  depth: 3
+
+script: make

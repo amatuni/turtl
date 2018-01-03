@@ -1,0 +1,1 @@
+loc --exclude .pb.go

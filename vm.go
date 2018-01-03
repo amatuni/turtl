@@ -1,4 +1,4 @@
-package main
+package turtl
 
 /*
 VM is the main virtual machine struct for 64 bit platforms.
@@ -9,7 +9,6 @@ runtime resources like heaps and bytecode are accessed
 through 8 bit integer ID's that serve as pointers into global
 maps which store these resources.
 
-Support for 32 bit platforms is provided by the VM32 type.
 */
 type VM struct {
 	ip     uint  // instruction pointer
@@ -18,6 +17,7 @@ type VM struct {
 	r1     int64 // register 1
 	r2     int64 // register 2
 	r3     int64 // register 3
+	currOp uint8 // currently loaded opcode
 	progID uint8 // ID of program associated to this VM
 	heapID uint8 // ID of heap associated to this VM
 }
@@ -25,13 +25,29 @@ type VM struct {
 /*
 NewVM construct a new virtual machine instance
 */
-func NewVM(progID uint8) *VM {
-	return &VM{
-		progID: progID,
-	}
+func NewVM() *VM {
+	return &VM{}
 }
 
-func (vm *VM) loadProgram(path string) error {
+/*
+Run the VM, at the end return resulting value as
+pointer to turtl Object
+*/
+func (vm *VM) Run() (*Object, error) {
+	return &Object{}, nil
+}
+
+/*
+LoadProgram into the virtual machine
+*/
+func (vm *VM) LoadProgram(prog []byte) error {
+	return nil
+}
+
+/*
+LoadProgramFile into the virtual machine
+*/
+func (vm *VM) LoadProgramFile(path string) error {
 	return nil
 }
 
@@ -39,23 +55,28 @@ func (vm *VM) loadProgram(path string) error {
 tick runs the VM forward one clock cycle
 */
 func (vm *VM) tick() {
+	switch vm {
 
+	}
 }
 
 /*
-VM32 is the main virtual machine struct for 32 bit platforms
+IP returns the instruction pointer
 */
-type VM32 struct {
-	ip     uint  // instruction pointer
-	fp     uint  // frame pointer
-	sp     uint  // stack pointer
-	r1     int32 // register 1
-	r2     int32 // register 2
-	r3     int32 // register 3
-	progID uint8 // ID of program associated to this VM
-	heapID uint8 // ID of heap associated to this VM
+func (vm *VM) IP() uint {
+	return vm.ip
 }
 
-func NewVM32() *VM {
-	return &VM{}
+/*
+FP returns the frame pointer
+*/
+func (vm *VM) FP() uint {
+	return vm.fp
+}
+
+/*
+SP returns the stack pointer
+*/
+func (vm *VM) SP() uint {
+	return vm.sp
 }

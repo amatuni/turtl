@@ -2,6 +2,10 @@
 
 a little programming language. 
 
+[![Build Status (Travis)](https://travis-ci.org/andreiamatuni/turtl.svg?branch=master)](https://travis-ci.org/andreiamatuni/turtl)
+[![GoDoc](https://godoc.org/github.com/andreiamatuni/turtl?status.svg)](https://godoc.org/github.com/andreiamatuni/turtl)
+
+
 <br>
 
 **Note: this is a work in progress**

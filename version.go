@@ -1,42 +1,52 @@
-package main
+package turtl
 
 import (
 	"fmt"
 	"unsafe"
-
-	"github.com/spf13/cobra"
 )
 
 const (
-	MAJOR = 0
-	MINOR = 1
-	PATCH = 0
+	major uint8 = 0
+	minor uint8 = 1
+	patch uint8 = 0
 )
 
-var versionNumStr = fmt.Sprintf("%d.%d.%d", MAJOR, MINOR, PATCH)
+var versionNumStr = fmt.Sprintf("%d.%d.%d", major, minor, patch)
 var intSize = unsafe.Sizeof(uint(0)) * 8 // number of bits in an uint
 
-// GitHash is the git HEAD commit hash the binary
+// gitHash is the git HEAD commit hash the binary
 // was built with
-var GitHash string
+var gitHash string
 
-func version() string {
-	return fmt.Sprintf("%s\n%s", versionNumStr, GitHash[:12])
+/*
+VersionNum returns the string representation of the
+version number: Major.Minor.Patch
+*/
+func VersionNum() string {
+	return versionNumStr
 }
 
-func init() {
-	RootCmd.AddCommand(versionCmd)
+/*
+GitHash returns the git commit hash for the version
+of turtl that was compiled
+*/
+func GitHash() string {
+	return gitHash
 }
 
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Print version info",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("\nturtl v" + version() + "\n\n")
-	},
+/*
+IntSize returns the size of an unsigned int on this
+platform
+*/
+func IntSize() uintptr {
+	return intSize
 }
 
-func infoGraphic() string {
+/*
+InfoGraphic returns a welcome message with some system
+info and an ascii turtle.
+*/
+func InfoGraphic() string {
 	return fmt.Sprintf(
 		`
 
@@ -48,7 +58,5 @@ func infoGraphic() string {
     / '-.____.-' \
     '='        '='
 
-Welcome to turtl. Type @help to see available commands.
-`, versionNumStr, intSize, GitHash[:13])
-
+`, versionNumStr, intSize, gitHash[:13])
 }

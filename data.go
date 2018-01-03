@@ -1,4 +1,4 @@
-package main
+package turtl
 
 import "os"
 

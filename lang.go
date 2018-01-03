@@ -1,4 +1,4 @@
-package main
+package turtl
 
 var keywords = [10]string{
 	"for",
