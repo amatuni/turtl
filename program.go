@@ -23,8 +23,10 @@ bytes of that hash at the end of the header.
 func (p Program) setProgID() error {
 	h := sha3.New256()
 	h.Write(p[headerLength:])
-	copy(p[headerLength-progIDLength:headerLength],
-		h.Sum(nil)[:progIDLength])
+	copy(
+		p[headerLength-progIDLength:headerLength],
+		h.Sum(nil)[:progIDLength],
+	)
 	return nil
 }
 

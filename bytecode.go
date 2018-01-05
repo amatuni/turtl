@@ -41,13 +41,19 @@ func readBinaryHeader(p Program) (ProgramHeader, error) {
 	if len(p) < headerLength {
 		return header, ErrProgramHeaderMalformed
 	}
-	copy(header.sign[:signLength], p[:signLength])
+	copy(
+		header.sign[:signLength],
+		p[:signLength],
+	)
 	header.major = p[4]
 	header.minor = p[5]
 	header.patch = p[6]
 	header.fvers = p[7]
 	header.ptype = ProgramType(p[8])
-	copy(header.prgid[:progIDLength], p[9:9+progIDLength])
+	copy(
+		header.prgid[:progIDLength],
+		p[9:9+progIDLength],
+	)
 
 	return header, nil
 }
