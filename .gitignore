@@ -4,3 +4,5 @@ turtl
 *.turtlc
 *.turtls
 debug
+*.test
+githash.go

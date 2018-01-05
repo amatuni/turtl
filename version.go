@@ -14,16 +14,27 @@ const (
 var versionNumStr = fmt.Sprintf("%d.%d.%d", major, minor, patch)
 var intSize = unsafe.Sizeof(uint(0)) * 8 // number of bits in an uint
 
-// gitHash is the git HEAD commit hash the binary
-// was built with
-var gitHash string
-
 /*
 VersionNum returns the string representation of the
 version number: Major.Minor.Patch
 */
 func VersionNum() string {
 	return versionNumStr
+}
+
+// Major version number
+func Major() uint8 {
+	return major
+}
+
+// Minor version number
+func Minor() uint8 {
+	return minor
+}
+
+// Patch version number
+func Patch() uint8 {
+	return patch
 }
 
 /*

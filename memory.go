@@ -4,6 +4,9 @@ import (
 	"fmt"
 )
 
+/*
+GC is the garbage collector
+*/
 type GC struct {
 	/*
 		heap is a memory store managed by the GC. Elements in
@@ -20,7 +23,7 @@ type GC struct {
 	pmap map[uint64]*Object
 }
 
-type Pointer struct {
+type pointer struct {
 	address uint
 	size    uint
 }
@@ -40,7 +43,8 @@ func (gc *GC) Allocate(x []byte) {
 }
 
 /*
-Lookup an object in the heap by its identifier
+LookupID returns an Object pointer from the heap given an
+identifier
 */
 func (gc *GC) LookupID(id uint64) (*Object, error) {
 	var obj *Object

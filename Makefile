@@ -1,17 +1,26 @@
 
-all:
-	@go get ./cli/...
-	@go build -i -o ./turtl -ldflags "-X main.gitHash=`git rev-parse HEAD`" ./cli/*.go
+GIT_HASH=`git rev-parse HEAD`
 
-install:
+all: version
 	@go get ./cli/...
-	@go build -o $(GOPATH)/bin/turtl -ldflags "-X main.gitHash=`git rev-parse HEAD`" ./cli
+	@go build -i -o ./turtl ./cli/*.go
 
-libturtl:
-	@go install -ldflags "-X main.gitHash=`git rev-parse HEAD`"
+install: version
+	@go install 
+	@go get ./cli/...
+	@go build -o $(GOPATH)/bin/turtl ./cli
+
+libturtl: version
+	@go install 
 
 proto:
 	@protoc -I . turtl.proto --gofast_out=plugins=grpc:cli
+
+version:
+	@echo "package turtl\n\nvar gitHash = \"$(GIT_HASH)\"\n" > githash.go
+
+test:
+	@go test -run '' -v
 
 clean:
 	@go clean -i github.com/andreiamatuni/
