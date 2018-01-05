@@ -77,10 +77,10 @@ data.
 */
 type ProgramHeader struct {
 	sign  [signLength]byte   // header signature
-	major uint8              // major version
-	minor uint8              // minor version
-	patch uint8              // patch version
-	fvers uint8              // bytecode format version
+	major byte               // major version
+	minor byte               // minor version
+	patch byte               // patch version
+	fvers byte               // bytecode format version
 	ptype ProgramType        // program type
 	prgid [progIDLength]byte // program ID
 }

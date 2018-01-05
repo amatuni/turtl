@@ -32,7 +32,7 @@ func TestReadBinaryHeader(t *testing.T) {
 	if result.Patch() != Patch() {
 		t.Errorf("parsedHeader.Patch %d != %d", result.Patch(), Patch())
 	}
-	if result.FormatVersion() != 3 {
+	if result.FormatVersion() != 0 {
 		t.Errorf("parsedHeader.FormatVersion %d != %d", result.FormatVersion(), 0)
 	}
 }
