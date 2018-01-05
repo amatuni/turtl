@@ -16,6 +16,13 @@ Program is a slice of executable bytecode
 type Program []byte
 
 /*
+Save the program to a turtlc compiled binary file
+*/
+func (p Program) Save(path string) {
+	saveBinary(p, path)
+}
+
+/*
 setProgID will hash all of the data that comes after
 the header and place the first ${progIDLength}
 bytes of that hash at the end of the header.
@@ -37,8 +44,10 @@ bytecode
 type ProgramType uint8
 
 const (
-	Execute ProgramType = 0 // contains main() function
-	Library ProgramType = 1 // contains only definitions
+	// Execute contains main() function
+	Execute ProgramType = 0
+	// Library contains only definitions
+	Library ProgramType = 1
 )
 
 /*

@@ -55,6 +55,7 @@ func CmdSave(args []string, ctx *ShellContext) error {
 
 	fpath := fmt.Sprintf("%s.%s", name, sessionSuffix)
 	f, err := os.Create(fpath)
+	defer f.Close()
 	if err != nil {
 		return err
 	}
