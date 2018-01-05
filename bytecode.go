@@ -52,7 +52,7 @@ func readBinaryHeader(p Program) (ProgramHeader, error) {
 	header.ptype = ProgramType(p[8])
 	copy(
 		header.prgid[:progIDLength],
-		p[9:9+progIDLength],
+		p[headerLength-progIDLength:headerLength],
 	)
 
 	return header, nil

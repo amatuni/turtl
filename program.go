@@ -52,10 +52,10 @@ type ProgramContainer struct {
 }
 
 /*
-ReadHeader bytes from a Program and return the info
-as ProgramHeader
+Header returns a ProgramHeader struct parsed from the
+first ${headerLength} bytes from a Program.
 */
-func (p *Program) ReadHeader() (ProgramHeader, error) {
+func (p *Program) Header() (ProgramHeader, error) {
 	header, err := readBinaryHeader(*p)
 	if err != nil {
 		return header, err
@@ -72,9 +72,8 @@ reflected through all other code that will have to deal
 with this elsewhere.
 
 The program ID element is a truncated cryptographic hash
-of all the data located after the header. Currently it's
-the first ${progIDLength} bytes of the SHA3-256 sum this
-data.
+of all the data located after the header. It's the first
+${progIDLength} bytes of the SHA3-256 sum of this data.
 
 */
 type ProgramHeader struct {
@@ -119,17 +118,17 @@ func (ph *ProgramHeader) Signature() [signLength]byte {
 }
 
 // Major version
-func (ph *ProgramHeader) Major() uint8 {
+func (ph *ProgramHeader) Major() byte {
 	return ph.major
 }
 
 // Minor version
-func (ph *ProgramHeader) Minor() uint8 {
+func (ph *ProgramHeader) Minor() byte {
 	return ph.minor
 }
 
 // Patch version
-func (ph *ProgramHeader) Patch() uint8 {
+func (ph *ProgramHeader) Patch() byte {
 	return ph.patch
 }
 
@@ -144,7 +143,7 @@ func (ph *ProgramHeader) ProgramType() ProgramType {
 }
 
 /*
-ProgramID is the SHA3-256 hash of all the data coming
+ProgramID is the SHA3-256 hash of all the data found
 after the header
 */
 func (ph *ProgramHeader) ProgramID() [progIDLength]byte {

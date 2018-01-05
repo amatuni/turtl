@@ -17,7 +17,7 @@ func checkRuntimeConditions() error {
 }
 
 func main() {
-	// make sure some invariants hold
+	// make sure some conditions hold
 	err := checkRuntimeConditions()
 	if err != nil {
 		log.Fatal(err)
