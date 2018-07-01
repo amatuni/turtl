@@ -1,8 +1,2 @@
-*.DS_Store
-turtl
-.vscode
-*.turtlc
-*.turtls
-debug
-*.test
-githash.go
+/target
+**/*.rs.bk

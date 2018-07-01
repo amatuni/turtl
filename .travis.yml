@@ -1,9 +1,8 @@
-language: go
-
-sudo: required
-dist: trusty
-
-git:
-  depth: 3
-
-script: make
+language: rust
+rust:
+  - stable
+  - nightly
+matrix:
+  allow_failures:
+    - rust: stable
+  fast_finish: true
