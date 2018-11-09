@@ -9,7 +9,7 @@ A p2p register based virtual machine.
 ### install
 
 ```
-$ git clone https://github.com/andreiamatuni/turtl.git
+$ git clone https://github.com/amatuni/turtl.git
 $ cd turtl
 $ cargo install
 ```
