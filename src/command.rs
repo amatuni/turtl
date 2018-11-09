@@ -48,13 +48,13 @@ pub struct Driver {
 impl Driver {
     pub fn new() -> Self {
         let cmd_map = cmdmap!(
-        "@help" => help, 
+        "@help" => help,
         "@load" => load,
-        "@reset" => reset, 
+        "@reset" => reset,
         "@compile" => compile,
-        "@run" => run, 
+        "@run" => run,
         "@peers" => peers,
-        "@save" => save, 
+        "@save" => save,
         "@name" => name);
 
         Driver { cmd_map: cmd_map }
@@ -107,7 +107,7 @@ save [path]         save current shell session to a file
 reset               reset the shell to the initial state
 name [name]         set the session name
 
-Shell commands should be prefixed with 
+Shell commands should be prefixed with
 an @ symbol, for example: @help
 "#;
 
